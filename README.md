@@ -1,8 +1,8 @@
-# 💡 Adcos Ideas
+# 💡 ide.al
 
 ### Plataforma de inovação e compartilhamento de ideias
 
-O **Adcos Ideas** é uma plataforma web desenvolvida para incentivar a inovação, a colaboração e o compartilhamento de ideias dentro de uma organização.
+O **ide.al** é uma plataforma web desenvolvida para incentivar a inovação, a colaboração e o compartilhamento de ideias dentro de uma organização.
 
 A proposta é oferecer um espaço onde colaboradores possam cadastrar sugestões, acompanhar o andamento de suas ideias e visualizar avaliações realizadas pela equipe administrativa.
 
@@ -225,7 +225,7 @@ O Vite disponibilizará o endereço local, normalmente:
 http://localhost:5173
 ```
 
-Pronto! O Adcos Ideas estará disponível no navegador.
+Pronto! O ide.al estará disponível no navegador.
 
 ---
 
@@ -264,7 +264,7 @@ Algumas medidas de segurança utilizadas no projeto:
 
 **Em desenvolvimento.**
 
-O Adcos Ideas está em processo de validação e evolução, com melhorias planejadas para a identidade visual, experiência do usuário, responsividade, funcionalidades e segurança.
+O ide.al está em processo de validação e evolução, com melhorias planejadas para a identidade visual, experiência do usuário, responsividade, funcionalidades e segurança.
 
 ---
 
@@ -274,4 +274,4 @@ Projeto desenvolvido por **Maike Silva**, com foco em desenvolvimento web Full S
 
 ---
 
-💡 **Adcos Ideas — Toda grande inovação começa com uma ideia.**
+💡 **ide.al — Toda grande inovação começa com uma ideia.**
