@@ -1,0 +1,40 @@
+
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Adcos Ideas - Backend",
+      "type": "process",
+      "command": "powershell.exe",
+      "args": ["-NoLogo", "-NoExit"],
+      "options": {
+        "cwd": "${workspaceFolder}/adcos-ideas/backend"
+      },
+      "presentation": {
+        "reveal": "always",
+        "focus": false,
+        "panel": "new"
+      },
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    },
+    {
+      "label": "Adcos Ideas - Frontend",
+      "type": "process",
+      "command": "powershell.exe",
+      "args": ["-NoLogo", "-NoExit"],
+      "options": {
+        "cwd": "${workspaceFolder}/adcos-ideas/frontend"
+      },
+      "presentation": {
+        "reveal": "always",
+        "focus": false,
+        "panel": "new"
+      },
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    }
+  ]
+}
