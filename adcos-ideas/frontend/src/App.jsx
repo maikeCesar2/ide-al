@@ -27,6 +27,7 @@ export default function App() {
       <Route path="/nova-ideia" element={<ProtectedRoute><NovaIdeia /></ProtectedRoute>} />
       <Route path="/minhas-ideias" element={<ProtectedRoute><MinhasIdeias /></ProtectedRoute>} />
       <Route path="/ideias/:id" element={<ProtectedRoute><DetalheIdeia /></ProtectedRoute>} />
+      <Route path="/ideias/:id/editar" element={<ProtectedRoute><NovaIdeia /></ProtectedRoute>} />
       <Route path="/perfil" element={<ProtectedRoute><Perfil /></ProtectedRoute>} />
       <Route path="/gestao" element={<ProtectedRoute admin><Gestao /></ProtectedRoute>} />
       <Route path="*" element={<NotFound />} />
