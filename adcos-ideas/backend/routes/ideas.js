@@ -114,9 +114,15 @@ router.delete("/ideas/:id", autenticarToken, async (req, res) => {
     const atual = await pool.query("SELECT * FROM ideias WHERE id = $1", [req.params.id]);
     const ideia = atual.rows[0];
     if (!ideia) return res.status(404).json({ erro: "Ideia não encontrada." });
-    if (ideia.usuario_id !== req.usuario.id && req.usuario.role !== "admin") {
+
+    const ehDono = ideia.usuario_id === req.usuario.id;
+    const ehAdmin = req.usuario.role === "admin";
+    const statusFinal = ["Implementada", "Não aprovada"].includes(ideia.status);
+    const podeExcluir = (ehDono && ideia.status === "Enviada") || (ehAdmin && statusFinal);
+    if (!podeExcluir) {
       return res.status(403).json({ erro: "Você não pode excluir esta ideia." });
     }
+
     await pool.query("DELETE FROM ideias WHERE id = $1", [req.params.id]);
     res.json({ mensagem: "Ideia excluída com sucesso." });
   } catch {
