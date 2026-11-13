@@ -44,9 +44,6 @@ router.get("/ideas/:id", autenticarToken, async (req, res) => {
     );
     const ideia = result.rows[0];
     if (!ideia) return res.status(404).json({ erro: "Ideia não encontrada." });
-    if (ideia.usuario_id !== req.usuario.id && req.usuario.role !== "admin") {
-      return res.status(403).json({ erro: "Você não tem acesso a esta ideia." });
-    }
     res.json(ideia);
   } catch {
     res.status(500).json({ erro: "Erro ao buscar ideia." });
@@ -186,9 +183,7 @@ router.get("/ideas/:id/historico", autenticarToken, async (req, res) => {
   try {
     const ideia = await pool.query("SELECT usuario_id FROM ideias WHERE id = $1", [req.params.id]);
     if (!ideia.rows[0]) return res.status(404).json({ erro: "Ideia não encontrada." });
-    if (ideia.rows[0].usuario_id !== req.usuario.id && req.usuario.role !== "admin") {
-      return res.status(403).json({ erro: "Acesso não autorizado." });
-    }
+  
     const result = await pool.query(
       `SELECT h.*, u.nome AS responsavel FROM historico_ideias h
        LEFT JOIN usuarios u ON u.id = h.usuario_id

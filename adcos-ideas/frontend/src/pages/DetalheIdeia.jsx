@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../api";
 import { useAuth } from "../context/AuthContext";
 
@@ -22,6 +22,14 @@ export default function DetalheIdeia() {
     catch (e) { setErro(e.message); }
   }
 
+  function voltar() {
+  if (window.history.state?.idx > 0) {
+    navigate(-1);
+  } else {
+    navigate("/minhas-ideias");
+  }
+}
+
   if (erro) return <main className="mx-auto max-w-3xl p-8 text-red-600">{erro}</main>;
   if (!idea) return <main className="mx-auto max-w-3xl p-8">Carregando ideia...</main>;
 
@@ -30,7 +38,7 @@ export default function DetalheIdeia() {
     const statusFinal = ["Implementada", "Não aprovada"].includes(idea.status);
     const podeExcluir = (ehDono && idea.status === "Enviada") || (ehAdmin && statusFinal);
 
-  return <main className="mx-auto max-w-3xl px-5 py-10"><Link to="/minhas-ideias" className="text-sm font-semibold text-yellow-700">← Voltar</Link><article className="mt-5 rounded-3xl bg-white p-8 shadow-sm"><span className="rounded-full bg-yellow-100 px-3 py-1 text-xs font-bold">{idea.status}</span><h1 className="mt-4 text-3xl font-extrabold">{idea.titulo}</h1><p className="mt-2 text-sm text-gray-500">Enviada por {idea.autor_nome} · {new Date(idea.criado_em).toLocaleDateString("pt-BR")}</p><p className="mt-7 whitespace-pre-wrap leading-7 text-gray-700">{idea.descricao}</p>{idea.avaliacao_tecnica && <div className="mt-7 rounded-xl bg-gray-50 p-5"><h2 className="font-bold">Avaliação técnica</h2><p className="mt-2 text-sm text-gray-600">{idea.avaliacao_tecnica}</p></div>}{<div className="mt-8 flex gap-3">
+  return <main className="mx-auto max-w-3xl px-5 py-10"><button onClick={voltar} type="button" className="text-sm font-semibold text-yellow-700">← Voltar</button><article className="mt-5 rounded-3xl bg-white p-8 shadow-sm"><span className="rounded-full bg-yellow-100 px-3 py-1 text-xs font-bold">{idea.status}</span><h1 className="mt-4 text-3xl font-extrabold">{idea.titulo}</h1><p className="mt-2 text-sm text-gray-500">Enviada por {idea.autor_nome} · {new Date(idea.criado_em).toLocaleDateString("pt-BR")}</p><p className="mt-7 whitespace-pre-wrap leading-7 text-gray-700">{idea.descricao}</p>{idea.avaliacao_tecnica && <div className="mt-7 rounded-xl bg-gray-50 p-5"><h2 className="font-bold">Avaliação técnica</h2><p className="mt-2 text-sm text-gray-600">{idea.avaliacao_tecnica}</p></div>}{<div className="mt-8 flex gap-3">
   {user?.id === idea.usuario_id && (
     <button
       onClick={() => navigate(`/ideias/${id}/editar`)}
