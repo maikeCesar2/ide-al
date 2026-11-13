@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../api";
+import { useAuth } from "../context/AuthContext";
 
 export default function NovaIdeia() {
+  const { user } = useAuth();
   const [form, setForm] = useState({ titulo: "", categoria: "", descricao: "" });
   const [erro, setErro] = useState("");
   const navigate = useNavigate();
@@ -12,9 +14,15 @@ export default function NovaIdeia() {
   useEffect(() => {
   if (!editando) return;
   api(`/api/ideas/${id}`)
-    .then(ideia => setForm({ titulo: ideia.titulo, categoria: ideia.categoria || "", descricao: ideia.descricao }))
-    .catch(err => setErro(err.message));
-}, [id]);
+    .then(ideia => {
+      if (ideia.usuario_id !== user?.id || ideia.status !== "Enviada") {
+        navigate(`/ideias/${4}`, { replace: true });
+    return;
+      }
+      setForm({ titulo: ideia.titulo, categoria: ideia.categoria || "", descricao: ideia.descricao })
+    })
+      .catch(err => setErro(err.message))
+  }, [id]);
 
   const change = e => setForm({ ...form, [e.target.name]: e.target.value });
 
