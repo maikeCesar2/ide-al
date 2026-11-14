@@ -41,7 +41,7 @@ export default function NovaIdeia() {
       <label className="block text-sm font-semibold">Categoria<select name="categoria" value={form.categoria} onChange={change} className="mt-2 w-full rounded-xl border bg-white p-3"><option value="">Selecione uma categoria</option><option>Processos</option><option>Produto</option><option>Atendimento</option><option>Tecnologia</option><option>Ambiente</option><option>Outra</option></select></label>
       <label className="block text-sm font-semibold">Descrição<textarea name="descricao" required rows="6" value={form.descricao} onChange={change} className="mt-2 w-full rounded-xl border p-3" placeholder="Explique sua ideia, o problema que ela resolve e os benefícios..."/></label>
       {erro && <p className="text-sm text-red-600">{erro}</p>}
-      <button className="rounded-xl bg-brandYellow px-6 py-3 font-bold">{editando ? "Salvar alterações" : "Enviar ideia"}</button>
+      <div className="flex gap-3"><button className="rounded-xl bg-brandYellow px-6 py-3 font-bold">{editando ? "Salvar alterações" : "Enviar ideia"}</button> {editando && (<button type="button" onClick={() => navigate(-1)} className="rounded-xl border border-gray-300 px-6 py-3 font-bold text-gray-700">Cancelar alterações</button>)}</div>
     </form>
   </div></main>;
 }
