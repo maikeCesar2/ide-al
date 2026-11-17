@@ -108,6 +108,24 @@ Adcos-Ideas/
     └── README.md
 ```
 
+## Telas
+
+**Home**
+
+![Tela Home da página](docs/screenshots/home.png)
+
+**Nova Ideia**
+
+![Tela de adicionar uma ideia](docs/screenshots/novaIdeia.png)
+
+**Detalhes**
+
+![Tela de detalhes de uma ideia](docs/screenshots/detalhes.png)
+
+**Gestão**
+
+![Tela de gestão para gerir uma ideia](docs/screenshots/gestao.png)
+
 ---
 
 ## ⚙️ Como executar o projeto
