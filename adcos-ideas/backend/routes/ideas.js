@@ -82,7 +82,9 @@ router.post("/ideas", autenticarToken, async (req, res) => {
 });
 
 router.put("/ideas/:id", autenticarToken, async (req, res) => {
-  const { titulo, descricao, categoria } = req.body;
+  const titulo = String(req.body.titulo || "").trim();
+  const descricao = String(req.body.descricao || "").trim();
+  const categoria = req.body.categoria || null;
   try {
     const atual = await pool.query("SELECT * FROM ideias WHERE id = $1", [req.params.id]);
     const ideia = atual.rows[0];
@@ -95,10 +97,12 @@ router.put("/ideas/:id", autenticarToken, async (req, res) => {
       return res.status(403).json({ erro: "Só é possível editar ideias com status Enviada." });
     }  
 
+    if (!titulo || !descricao) return res.status(400).json({ erro: "Título e descrição são obrigatórios." });
+
     const result = await pool.query(
       `UPDATE ideias SET titulo = $1, descricao = $2, categoria = $3,
        atualizado_em = CURRENT_TIMESTAMP WHERE id = $4 RETURNING *`,
-      [titulo || ideia.titulo, descricao || ideia.descricao, categoria ?? ideia.categoria, req.params.id]
+      [titulo, descricao, categoria ?? ideia.categoria, req.params.id]
     );
     res.json(result.rows[0]);
   } catch {
