@@ -4,6 +4,16 @@ const jwt = require("jsonwebtoken");
 const pool = require("../db/db");
 const { autenticarToken } = require("../middleware/auth");
 
+const rateLimit = require("express-rate-limit");
+
+const limiteLogin = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 3,
+  message: { erro: "Muitas tentativas de login. Tente novamente mais tarde." },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
 const router = express.Router();
 
 router.post("/", async (req, res) => {
@@ -30,7 +40,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.post("/login", async (req, res) => {
+router.post("/login", limiteLogin, async (req, res) => {
   const email = String(req.body.email || "").trim().toLowerCase();
   const senha = String(req.body.senha || "");
   if (!email || !senha) return res.status(400).json({ erro: "Informe email e senha." });

@@ -1,4 +1,5 @@
 require("dotenv").config();
+const helmet = require("helmet");
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
@@ -15,6 +16,7 @@ if (!process.env.JWT_SECRET) {
   process.exit(1);
 }
 
+app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }));
 app.use(cors({ origin: process.env.CORS_ORIGIN || "http://localhost:5173" }));
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
